@@ -1,7 +1,6 @@
 # .NET 8 JWT and Refresh token authentication
 
-Authentication using **JWT** and **Refresh token**, with **password reset** and **email verification**
-Frontend for this project can be found [here](https://github.com/Cores13/Authentication_Frontend)
+Authentication using **JWT** and **Refresh token**, with **password reset** and **email verification**. Frontend for this project can be found [here](https://github.com/Cores13/Authentication_Frontend)
 
 ## Details
 -  **Architecture**: **Clean architecture**
