@@ -4,6 +4,7 @@ using Authentication.Application.Password.ForgotPasswordVerifyCode;
 using Authentication.Application.Users.Commands.Create;
 using Authentication.Application.Users.Commands.Delete;
 using Authentication.Application.Users.Commands.Login;
+using Authentication.Application.Users.Commands.Logout;
 using Authentication.Application.Users.Commands.RenewToken;
 using Authentication.Application.Users.Commands.ResendVerificationEmail;
 using Authentication.Application.Users.Commands.Update;
@@ -146,6 +147,31 @@ namespace Authentication.API.Controllers
                 }
 
                 return Ok(tokenResult.Value);
+            }
+            catch (Exception ex)
+            {
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Logout(CancellationToken cancellationToken)
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+
+                var command = new LogoutCommand(userId);
+
+                var tokenResult = await Sender.Send(command, cancellationToken);
+
+                if(tokenResult.IsFailure)
+                {
+                    return HandleFailure(tokenResult);
+                }
+
+                return Ok();
             }
             catch (Exception ex)
             {
