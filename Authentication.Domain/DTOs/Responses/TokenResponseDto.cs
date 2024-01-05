@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.DTOs.Responses
+﻿namespace Authentication.Domain.DTOs.Responses
 {
     public class TokenResponseDto
     {

@@ -1,8 +1,8 @@
-﻿using Digimash.Application.Behaviors;
+﻿using Authentication.Application.Behaviors;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Digimash.Application
+namespace Authentication.Application
 {
     public static class DependencyInjection
     {

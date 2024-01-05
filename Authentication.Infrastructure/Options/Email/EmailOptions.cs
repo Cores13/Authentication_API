@@ -1,4 +1,4 @@
-﻿namespace Digimash.Infrastructure.Options.Email
+﻿namespace Authentication.Infrastructure.Options.Email
 {
     public class EmailOptions
     {

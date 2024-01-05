@@ -1,6 +1,6 @@
-﻿using Digimash.Application.Abstractions.Messaging;
+﻿using Authentication.Application.Abstractions.Messaging;
 
-namespace Digimash.Application.Users.Commands.Update
+namespace Authentication.Application.Users.Commands.Update
 {
     public record UpdateUserCommand(
         int? Id,

@@ -1,10 +1,10 @@
 ﻿using PhoneNumbers;
-using Digimash.Domain.DTOs.Requests;
-using Digimash.Domain.DTOs.Responses;
-using Digimash.Domain.Enums;
-using Digimash.Domain.Entities;
+using Authentication.Domain.DTOs.Requests;
+using Authentication.Domain.DTOs.Responses;
+using Authentication.Domain.Enums;
+using Authentication.Domain.Entities;
 
-namespace Digimash.Application.Mappers
+namespace Authentication.Application.Mappers
 {
     public static class UserMapper 
     {

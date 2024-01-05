@@ -1,7 +1,7 @@
-﻿using Digimash.Domain.Interfaces.Repository;
-using Digimash.Infrastructure.Database;
+﻿using Authentication.Domain.Interfaces.Repository;
+using Authentication.Infrastructure.Database;
 
-namespace Digimash.Infrastructure.Repository
+namespace Authentication.Infrastructure.Repository
 {
     public class UnitOfWork: IUnitOfWork
     {

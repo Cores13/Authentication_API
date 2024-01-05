@@ -1,15 +1,15 @@
-﻿using Digimash.Domain.DTOs.Responses;
-using Digimash.Domain.Entities;
-using Digimash.Domain.Interfaces.Repository;
-using Digimash.Infrastructure.Database;
+﻿using Authentication.Domain.DTOs.Responses;
+using Authentication.Domain.Entities;
+using Authentication.Domain.Interfaces.Repository;
+using Authentication.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
-using Digimash.Application.Mappers;
-using Digimash.Domain.DTOs.Paging;
+using Authentication.Application.Mappers;
+using Authentication.Domain.DTOs.Paging;
 using Newtonsoft.Json;
-using Digimash.Domain.Enums;
-using Digimash.Domain.Core.Extensions;
+using Authentication.Domain.Enums;
+using Authentication.Domain.Core.Extensions;
 
-namespace Digimash.Infrastructure.Repository
+namespace Authentication.Infrastructure.Repository
 {
     public class UserRepository : Repository<User>, IUserRepository
     {

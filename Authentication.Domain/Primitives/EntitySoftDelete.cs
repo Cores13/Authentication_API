@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.Primitives
+﻿namespace Authentication.Domain.Primitives
 {
     public abstract class EntitySoftDelete : IEquatable<EntitySoftDelete>
     {

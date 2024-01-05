@@ -1,11 +1,11 @@
-﻿using Digimash.Application.Abstractions.Messaging;
-using Digimash.Application.Mappers;
-using Digimash.Domain.Core.Errors;
-using Digimash.Domain.Core.Primitives;
-using Digimash.Domain.DTOs.Responses;
-using Digimash.Domain.Interfaces.Repository;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Application.Mappers;
+using Authentication.Domain.Core.Errors;
+using Authentication.Domain.Core.Primitives;
+using Authentication.Domain.DTOs.Responses;
+using Authentication.Domain.Interfaces.Repository;
 
-namespace Digimash.Application.Users.Queries.GetOne
+namespace Authentication.Application.Users.Queries.GetOne
 {
     internal sealed class GetOneUserQueryHandler : IQueryHandler<GetOneUserQuery, UserResponseDto>
     {

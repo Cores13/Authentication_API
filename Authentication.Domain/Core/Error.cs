@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Digimash.Domain.Core.Primitives
+namespace Authentication.Domain.Core.Primitives
 {
     /// <summary>
     /// Represents a concrete domain error.

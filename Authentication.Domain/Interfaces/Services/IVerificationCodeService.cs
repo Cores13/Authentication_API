@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Enums;
+﻿using Authentication.Domain.Enums;
 
-namespace Digimash.Domain.Interfaces.Services
+namespace Authentication.Domain.Interfaces.Services
 {
     public interface IVerificationCodeService
     {

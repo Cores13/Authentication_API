@@ -1,7 +1,6 @@
-﻿using Digimash.Application.Users.Commands.VerifyEmail;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Digimash.Application.Users.Commands.VerifyEmail
+namespace Authentication.Application.Users.Commands.VerifyEmail
 {
     public sealed class VerifyEmailCommandValidator : AbstractValidator<VerifyEmailCommand>
     {

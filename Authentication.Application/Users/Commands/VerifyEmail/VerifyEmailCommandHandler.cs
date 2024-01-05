@@ -1,14 +1,11 @@
-﻿using Digimash.Application.Abstractions.Messaging;
-using Digimash.Application.Mappers;
-using Digimash.Application.Users.Commands.VerifyEmail;
-using Digimash.Domain.Core.Errors;
-using Digimash.Domain.Core.Primitives;
-using Digimash.Domain.DTOs.Requests;
-using Digimash.Domain.Enums;
-using Digimash.Domain.Interfaces.Repository;
-using Digimash.Domain.Interfaces.Services;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Domain.Core.Errors;
+using Authentication.Domain.Core.Primitives;
+using Authentication.Domain.Enums;
+using Authentication.Domain.Interfaces.Repository;
+using Authentication.Domain.Interfaces.Services;
 
-namespace Digimash.Application.Users.Commands.UpdateMe
+namespace Authentication.Application.Users.Commands.VerifyEmail
 {
     public sealed class VerifyEmailCommandHandler : ICommandHandler<VerifyEmailCommand>
     {
@@ -31,7 +28,13 @@ namespace Digimash.Application.Users.Commands.UpdateMe
                     DomainErrors.User.DoesNotExist);
             }
 
-            var isCodeValid = await _verificationCodeService.VerifyCodeAsync((int)user.Id, request.Code, VerificationCodeType.EmailVerification, cancellationToken, false);
+            if (user.EmailVerifiedAt is not null)
+            {
+                return Result.Failure(
+                    DomainErrors.User.EmailAlreadyVerified);
+            }
+
+            var isCodeValid = await _verificationCodeService.VerifyCodeAsync((int)user.Id, request.Code, VerificationCodeType.EmailVerification, cancellationToken, true);
 
             if (!isCodeValid)
             {

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Digimash.Application.Password.ForgotPasswordVerifyCode
+namespace Authentication.Application.Password.ForgotPasswordVerifyCode
 {
     public sealed class ForgotPasswordVerifyCodeCommandValidator : AbstractValidator<ForgotPasswordVerifyCodeCommand>
     {
@@ -8,7 +8,7 @@ namespace Digimash.Application.Password.ForgotPasswordVerifyCode
         {
             RuleFor(x => x.Code)
                 .NotEmpty()
-                .MinimumLength(4);
+                .MinimumLength(12);
         }
     }
 }

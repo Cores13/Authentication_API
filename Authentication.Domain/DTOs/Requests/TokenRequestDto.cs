@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.DTOs.Requests
+﻿namespace Authentication.Domain.DTOs.Requests
 {
     public class TokenRequestDto
     {

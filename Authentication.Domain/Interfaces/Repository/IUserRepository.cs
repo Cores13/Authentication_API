@@ -1,10 +1,10 @@
-﻿using Digimash.Domain.DTOs.Paging;
-using Digimash.Domain.DTOs.Requests;
-using Digimash.Domain.DTOs.Responses;
-using Digimash.Domain.Entities;
+﻿using Authentication.Domain.DTOs.Paging;
+using Authentication.Domain.DTOs.Requests;
+using Authentication.Domain.DTOs.Responses;
+using Authentication.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace Digimash.Domain.Interfaces.Repository
+namespace Authentication.Domain.Interfaces.Repository
 {
     public interface IUserRepository : IRepository<User>
     {

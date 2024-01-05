@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Core.Primitives;
+﻿using Authentication.Domain.Core.Primitives;
 
-namespace Digimash.Domain.Core.Errors
+namespace Authentication.Domain.Core.Errors
 {
     /// <summary>
     /// Contains the domain errors.

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Digimash.Domain.Interfaces.Repository
+namespace Authentication.Domain.Interfaces.Repository
 {
     public interface IRepository<T> where T : class
     {

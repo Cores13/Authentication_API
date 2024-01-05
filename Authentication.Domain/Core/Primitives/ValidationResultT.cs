@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Interfaces.Primitives;
+﻿using Authentication.Domain.Interfaces.Primitives;
 
-namespace Digimash.Domain.Core.Primitives
+namespace Authentication.Domain.Core.Primitives
 {
     public sealed class ValidationResult<TValue> : Result<TValue>, IValidationResult
     {

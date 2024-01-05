@@ -1,4 +1,4 @@
-﻿namespace Digimash.Infrastructure.Options.Authentication
+﻿namespace Authentication.Infrastructure.Options.Authentication
 {
     public class JwtOptions
     {

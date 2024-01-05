@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Entities;
+﻿using Authentication.Domain.Entities;
 
-namespace Digimash.Domain.Interfaces.Services
+namespace Authentication.Domain.Interfaces.Services
 {
     public interface IPasswordService
     {

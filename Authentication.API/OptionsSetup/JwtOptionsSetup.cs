@@ -1,7 +1,7 @@
-﻿using Digimash.Infrastructure.Options.Authentication;
+﻿using Authentication.Infrastructure.Options.Authentication;
 using Microsoft.Extensions.Options;
 
-namespace Digimash.API.OptionsSetup
+namespace Authentication.API.OptionsSetup
 {
     public class JwtOptionsSetup : IConfigureOptions<JwtOptions>
     {

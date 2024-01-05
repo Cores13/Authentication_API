@@ -1,6 +1,6 @@
-﻿using Digimash.Application.Abstractions.Messaging;
+﻿using Authentication.Application.Abstractions.Messaging;
 
-namespace Digimash.Application.Users.Commands.VerifyEmail
+namespace Authentication.Application.Users.Commands.VerifyEmail
 {
     public record VerifyEmailCommand(
         int Id,

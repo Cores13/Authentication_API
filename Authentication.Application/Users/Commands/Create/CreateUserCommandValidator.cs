@@ -1,8 +1,8 @@
-﻿using Digimash.Domain.Core.Errors;
-using Digimash.Domain.Interfaces.Services;
+﻿using Authentication.Domain.Core.Errors;
+using Authentication.Domain.Interfaces.Services;
 using FluentValidation;
 
-namespace Digimash.Application.Users.Commands.Create
+namespace Authentication.Application.Users.Commands.Create
 {
     public sealed class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {

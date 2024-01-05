@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.Interfaces.Repository
+﻿namespace Authentication.Domain.Interfaces.Repository
 {
     public interface IUnitOfWork
     {

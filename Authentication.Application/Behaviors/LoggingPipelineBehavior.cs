@@ -1,8 +1,8 @@
-﻿using Digimash.Domain.Core.Primitives;
+﻿using Authentication.Domain.Core.Primitives;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Digimash.Application.Behaviors
+namespace Authentication.Application.Behaviors
 {
     public class LoggingPipelineBehavior<TRequest, TResponse> 
         : IPipelineBehavior<TRequest, TResponse>

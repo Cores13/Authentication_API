@@ -1,8 +1,8 @@
-﻿using Digimash.Application.Abstractions.Messaging;
-using Digimash.Domain.Core.Primitives;
-using Digimash.Domain.Interfaces.Repository;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Domain.Core.Primitives;
+using Authentication.Domain.Interfaces.Repository;
 
-namespace Digimash.Application.Users.Commands.Delete
+namespace Authentication.Application.Users.Commands.Delete
 {
     public sealed class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
     {

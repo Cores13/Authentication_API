@@ -1,6 +1,6 @@
-﻿using Digimash.Application.Abstractions.Messaging;
+﻿using Authentication.Application.Abstractions.Messaging;
 
-namespace Digimash.Application.Password.ForgotPasswordVerifyCode
+namespace Authentication.Application.Password.ForgotPasswordVerifyCode
 {
     public record ForgotPasswordVerifyCodeCommand(string Email, string Code) : ICommand;
 }

@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.Core.Primitives
+﻿namespace Authentication.Domain.Core.Primitives
 {
     /// <summary>
     /// Contains extension methods for the result class.

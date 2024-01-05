@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Core.Primitives;
+﻿using Authentication.Domain.Core.Primitives;
 
-namespace Digimash.Domain.Interfaces.Primitives
+namespace Authentication.Domain.Interfaces.Primitives
 {
     public interface IValidationResult
     {

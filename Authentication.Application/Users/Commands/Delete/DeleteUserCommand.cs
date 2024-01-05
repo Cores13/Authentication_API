@@ -1,6 +1,6 @@
-﻿using Digimash.Application.Abstractions.Messaging;
+﻿using Authentication.Application.Abstractions.Messaging;
 
-namespace Digimash.Application.Users.Commands.Delete
+namespace Authentication.Application.Users.Commands.Delete
 {
     public record DeleteUserCommand(int? Id) : ICommand;
 }

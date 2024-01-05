@@ -1,11 +1,11 @@
-using Digimash.Application;
-using Digimash.Infrastructure;
+using Authentication.Application;
+using Authentication.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Digimash.API.OptionsSetup;
+using Authentication.API.OptionsSetup;
 using Serilog;
-using Digimash.Application.Behaviors;
+using Authentication.Application.Behaviors;
 using MediatR;
-using Digimash.API.Middleware;
+using Authentication.API.Middleware;
 using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,7 +36,7 @@ builder.Services.AddScoped(
     typeof(IPipelineBehavior<,>),
     typeof(ValidationPipelineBehavior<,>));
 
-builder.Services.AddValidatorsFromAssembly(Digimash.Application.AssemblyReference.Assembly,
+builder.Services.AddValidatorsFromAssembly(Authentication.Application.AssemblyReference.Assembly,
     includeInternalTypes: true);
 
 builder.Host.UseSerilog((context, configuration) =>

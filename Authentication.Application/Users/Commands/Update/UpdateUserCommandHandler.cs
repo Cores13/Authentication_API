@@ -1,11 +1,11 @@
-﻿using Digimash.Application.Abstractions.Messaging;
-using Digimash.Application.Mappers;
-using Digimash.Domain.Core.Primitives;
-using Digimash.Domain.DTOs.Requests;
-using Digimash.Domain.Interfaces.Repository;
-using Digimash.Domain.Interfaces.Services;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Application.Mappers;
+using Authentication.Domain.Core.Primitives;
+using Authentication.Domain.DTOs.Requests;
+using Authentication.Domain.Interfaces.Repository;
+using Authentication.Domain.Interfaces.Services;
 
-namespace Digimash.Application.Users.Commands.Update
+namespace Authentication.Application.Users.Commands.Update
 {
     public sealed class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand>
     {

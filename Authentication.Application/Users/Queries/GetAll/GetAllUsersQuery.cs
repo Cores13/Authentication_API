@@ -1,8 +1,8 @@
-﻿using Digimash.Application.Abstractions.Messaging;
-using Digimash.Domain.DTOs.Paging;
-using Digimash.Domain.DTOs.Responses;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Domain.DTOs.Paging;
+using Authentication.Domain.DTOs.Responses;
 
-namespace Digimash.Application.Users.Queries.GetOne
+namespace Authentication.Application.Users.Queries.GetOne
 {
     public record GetAllUsersQuery(PagedRequest<string> PagedQuery) : IQuery<PagedResponse<UserResponseDto?>>;
 }

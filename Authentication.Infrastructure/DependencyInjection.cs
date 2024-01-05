@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Digimash.Infrastructure.Database;
+using Authentication.Infrastructure.Database;
 using Microsoft.AspNetCore.Builder;
-using Digimash.Domain.Interfaces.Repository;
-using Digimash.Infrastructure.Repository;
-using Digimash.Domain.Interfaces.Services;
-using Digimash.Infrastructure.Services;
-using Digimash.Application.Abstractions;
-using Digimash.Infrastructure.Options.Authentication;
+using Authentication.Domain.Interfaces.Repository;
+using Authentication.Infrastructure.Repository;
+using Authentication.Domain.Interfaces.Services;
+using Authentication.Infrastructure.Services;
+using Authentication.Application.Abstractions;
+using Authentication.Infrastructure.Options.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Digimash.Infrastructure
+namespace Authentication.Infrastructure
 {
     public static class DependencyInjection
     {
@@ -26,7 +26,7 @@ namespace Digimash.Infrastructure
                     {
                         // ctxOptions.MaxBatchSize(1000);
                         // ctxOptions.EnableRetryOnFailure();
-                        ctxOptions.MigrationsAssembly("Digimash.Infrastructure");
+                        ctxOptions.MigrationsAssembly("Authentication.Infrastructure");
                         // ctxOptions.UseNetTopologySuite();
                         ctxOptions.CommandTimeout(180);
                     }

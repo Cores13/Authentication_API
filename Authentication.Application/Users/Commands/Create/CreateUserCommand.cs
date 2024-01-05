@@ -1,6 +1,6 @@
-﻿using Digimash.Application.Abstractions.Messaging;
+﻿using Authentication.Application.Abstractions.Messaging;
 
-namespace Digimash.Application.Users.Commands.Create
+namespace Authentication.Application.Users.Commands.Create
 {
     public record CreateUserCommand(
         string Name,

@@ -1,8 +1,8 @@
-﻿using Digimash.Domain.Enums;
-using Digimash.Domain.Interfaces.Services;
+﻿using Authentication.Domain.Enums;
+using Authentication.Domain.Interfaces.Services;
 using FluentValidation;
 
-namespace Digimash.Application.Password.ForgotPasswordRequest
+namespace Authentication.Application.Password.ForgotPasswordRequest
 {
     public sealed class ForgotPasswordRequestCommandValidator : AbstractValidator<ForgotPasswordRequestCommand>
     {

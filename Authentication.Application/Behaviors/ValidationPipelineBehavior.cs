@@ -1,8 +1,8 @@
-﻿using Digimash.Domain.Core.Primitives;
+﻿using Authentication.Domain.Core.Primitives;
 using FluentValidation;
 using MediatR;
 
-namespace Digimash.Application.Behaviors
+namespace Authentication.Application.Behaviors
 {
     public class ValidationPipelineBehavior<TRequest, TResponse>
         : IPipelineBehavior<TRequest, TResponse>

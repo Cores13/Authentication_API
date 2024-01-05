@@ -1,7 +1,7 @@
-﻿using Digimash.Domain.Enums;
-using Digimash.Domain.Entities;
+﻿using Authentication.Domain.Enums;
+using Authentication.Domain.Entities;
 
-namespace Digimash.Domain.Seeders
+namespace Authentication.Domain.Seeders
 {
     public class UserSeeder
     {

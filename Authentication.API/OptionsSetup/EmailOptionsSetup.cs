@@ -1,7 +1,7 @@
-﻿using Digimash.Infrastructure.Options.Email;
+﻿using Authentication.Infrastructure.Options.Email;
 using Microsoft.Extensions.Options;
 
-namespace Digimash.API.OptionsSetup
+namespace Authentication.API.OptionsSetup
 {
     public class EmailOptionsSetup : IConfigureOptions<EmailOptions>
     {

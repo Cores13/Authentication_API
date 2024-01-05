@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Enums;
+﻿using Authentication.Domain.Enums;
 
-namespace Digimash.Domain.DTOs.Responses
+namespace Authentication.Domain.DTOs.Responses
 {
     public class UserResponseDto
     {

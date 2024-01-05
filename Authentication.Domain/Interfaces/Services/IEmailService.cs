@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.DTOs.Email;
+﻿using Authentication.Domain.DTOs.Email;
 
-namespace Digimash.Domain.Interfaces.Services
+namespace Authentication.Domain.Interfaces.Services
 {
     public interface IEmailService
     {

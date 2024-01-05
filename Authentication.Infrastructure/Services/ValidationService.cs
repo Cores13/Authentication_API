@@ -1,11 +1,11 @@
-﻿namespace Digimash.Infrastructure.Services
+﻿namespace Authentication.Infrastructure.Services
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Digimash.Domain.Interfaces.Repository;
-    using Digimash.Domain.Interfaces.Services;
-    using Digimash.Infrastructure.Database;
+    using Authentication.Domain.Interfaces.Repository;
+    using Authentication.Domain.Interfaces.Services;
+    using Authentication.Infrastructure.Database;
     using Microsoft.EntityFrameworkCore;
     using PhoneNumbers;
     public class ValidationService : IValidationService

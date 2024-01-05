@@ -1,10 +1,10 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using Digimash.Domain.Entities;
-using Digimash.Domain.Interfaces.Services;
+using Authentication.Domain.Entities;
+using Authentication.Domain.Interfaces.Services;
 
-namespace Digimash.Infrastructure.Services
+namespace Authentication.Infrastructure.Services
 {
     public class PasswordService : IPasswordService
     {

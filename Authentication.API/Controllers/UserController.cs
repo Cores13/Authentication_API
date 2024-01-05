@@ -1,27 +1,25 @@
-﻿using Digimash.Application.Password.ForgotPasswordRequest;
-using Digimash.Application.Password.ForgotPasswordReset;
-using Digimash.Application.Password.ForgotPasswordVerifyCode;
-using Digimash.Application.Users.Commands.Create;
-using Digimash.Application.Users.Commands.Delete;
-using Digimash.Application.Users.Commands.Login;
-using Digimash.Application.Users.Commands.RenewToken;
-using Digimash.Application.Users.Commands.Update;
-using Digimash.Application.Users.Commands.UpdateMe;
-using Digimash.Application.Users.Commands.VerifyEmail;
-using Digimash.Application.Users.Queries.GetOne;
-using Digimash.Domain.Core.Errors;
-using Digimash.Domain.Core.Primitives;
-using Digimash.Domain.DTOs.Paging;
-using Digimash.Domain.DTOs.Request;
-using Digimash.Domain.DTOs.Requests;
-using Digimash.Domain.Templates;
+﻿using Authentication.Application.Password.ForgotPasswordRequest;
+using Authentication.Application.Password.ForgotPasswordReset;
+using Authentication.Application.Password.ForgotPasswordVerifyCode;
+using Authentication.Application.Users.Commands.Create;
+using Authentication.Application.Users.Commands.Delete;
+using Authentication.Application.Users.Commands.Login;
+using Authentication.Application.Users.Commands.RenewToken;
+using Authentication.Application.Users.Commands.ResendVerificationEmail;
+using Authentication.Application.Users.Commands.Update;
+using Authentication.Application.Users.Commands.UpdateMe;
+using Authentication.Application.Users.Commands.VerifyEmail;
+using Authentication.Application.Users.Queries.GetOne;
+using Authentication.Domain.Core.Primitives;
+using Authentication.Domain.DTOs.Paging;
+using Authentication.Domain.DTOs.Request;
+using Authentication.Domain.DTOs.Requests;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
 
-namespace Digimash.API.Controllers
+namespace Authentication.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -54,7 +52,7 @@ namespace Digimash.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
             }
         }
 
@@ -76,7 +74,7 @@ namespace Digimash.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
             }
         }
 
@@ -99,7 +97,7 @@ namespace Digimash.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
             }
         }
 
@@ -127,7 +125,7 @@ namespace Digimash.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
             }
         }
 
@@ -151,7 +149,7 @@ namespace Digimash.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
             }
         }
 
@@ -181,7 +179,7 @@ namespace Digimash.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
             }
         }
 
@@ -208,7 +206,7 @@ namespace Digimash.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message});
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
             }
         }
 
@@ -235,11 +233,11 @@ namespace Digimash.API.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "SuperAdministrator")]
         public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
@@ -262,7 +260,6 @@ namespace Digimash.API.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> ForgotPasswordRequest(ForgotPasswordRequestDto request, CancellationToken cancellationToken)
         {
             try
@@ -290,7 +287,6 @@ namespace Digimash.API.Controllers
         }
         
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> ForgotPasswordVerifyCode(ForgotPasswordVerifyCodeDto request, CancellationToken cancellationToken)
         {
             try
@@ -319,7 +315,6 @@ namespace Digimash.API.Controllers
         }
         
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> ForgotPasswordReset(ForgotPasswordResetDto request, CancellationToken cancellationToken)
         {
             try
@@ -369,7 +364,28 @@ namespace Digimash.API.Controllers
             }
             catch (Exception ex)
             {
-                //return BadRequest(new { message = ex.Message });
+                return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
+            }
+        }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> ResendVerificationEmail(int id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var command = new ResendVerificationEmailCommand(id);
+
+                var result = await Sender.Send(command, cancellationToken);
+
+                if (result.IsFailure)
+                {
+                    return HandleFailure(result);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
                 return HandleFailure(Result.Failure(new Error("BadRequest", ex.Message)));
             }
         }

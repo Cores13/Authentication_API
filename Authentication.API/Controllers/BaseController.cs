@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Digimash.Domain.Enums;
+using Authentication.Domain.Enums;
 using MediatR;
-using Digimash.Domain.Core.Primitives;
-using Digimash.Domain.Interfaces.Primitives;
+using Authentication.Domain.Core.Primitives;
+using Authentication.Domain.Interfaces.Primitives;
 using System.Xml.Linq;
 
-namespace Digimash.API.Controllers
+namespace Authentication.API.Controllers
 {
     public class BaseController : Controller
     {

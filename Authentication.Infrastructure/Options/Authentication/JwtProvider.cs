@@ -1,6 +1,6 @@
-﻿using Digimash.Application.Abstractions;
-using Digimash.Domain.Entities;
-using Digimash.Domain.Enums;
+﻿using Authentication.Application.Abstractions;
+using Authentication.Domain.Entities;
+using Authentication.Domain.Enums;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Digimash.Infrastructure.Options.Authentication
+namespace Authentication.Infrastructure.Options.Authentication
 {
     internal sealed class JwtProvider : IJwtProvider
     {

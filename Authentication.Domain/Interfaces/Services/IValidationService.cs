@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.Interfaces.Services
+﻿namespace Authentication.Domain.Interfaces.Services
 {
     using System.Threading;
     using System.Threading.Tasks;

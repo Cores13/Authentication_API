@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Digimash.Domain.Core.Extensions
+namespace Authentication.Domain.Core.Extensions
 {
     public static class IQueryableExtension
     {
@@ -11,12 +11,12 @@ namespace Digimash.Domain.Core.Extensions
 
             if (source == null)
             {
-                throw new ArgumentNullException("Takeda");
+                throw new ArgumentNullException();
             }
 
             if (propertyName == null)
             {
-                throw new ArgumentNullException("propertyName");
+                throw new ArgumentNullException();
             }
 
             Type type = typeof(T);
@@ -25,7 +25,7 @@ namespace Digimash.Domain.Core.Extensions
             PropertyInfo pi = type.GetProperties().FirstOrDefault(x => x.Name.ToLower() == propertyName.ToLower());
             if (pi == null)
             {
-                // exception
+                throw new ArgumentNullException();
             }
             Expression expr = Expression.Property(arg, pi);
             type = pi.PropertyType;

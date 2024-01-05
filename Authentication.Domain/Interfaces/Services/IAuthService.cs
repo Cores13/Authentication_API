@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Digimash.Domain.Interfaces.Services
+namespace Authentication.Domain.Interfaces.Services
 {
     public interface IAuthService
     {

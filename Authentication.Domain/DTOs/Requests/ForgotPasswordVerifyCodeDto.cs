@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Digimash.Domain.DTOs.Request
+namespace Authentication.Domain.DTOs.Request
 {
     public class ForgotPasswordVerifyCodeDto : ForgotPasswordRequestDto
     {

@@ -1,7 +1,7 @@
-﻿using Digimash.Application.Abstractions.Messaging;
-using Digimash.Domain.DTOs.Responses;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Domain.DTOs.Responses;
 
-namespace Digimash.Application.Users.Commands.Login
+namespace Authentication.Application.Users.Commands.Login
 {
     public record LoginCommand(string Email, string Password) : ICommand<TokenResponseDto>;
 }

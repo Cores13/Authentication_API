@@ -1,11 +1,11 @@
-﻿using Digimash.Application.Abstractions.Messaging;
-using Digimash.Domain.Core.Errors;
-using Digimash.Domain.Core.Primitives;
-using Digimash.Domain.Enums;
-using Digimash.Domain.Interfaces.Repository;
-using Digimash.Domain.Interfaces.Services;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Domain.Core.Errors;
+using Authentication.Domain.Core.Primitives;
+using Authentication.Domain.Enums;
+using Authentication.Domain.Interfaces.Repository;
+using Authentication.Domain.Interfaces.Services;
 
-namespace Digimash.Application.Password.ForgotPasswordReset
+namespace Authentication.Application.Password.ForgotPasswordReset
 {
     public sealed class ForgotPasswordResetCommandHandler : ICommandHandler<ForgotPasswordResetCommand>
     {
@@ -30,7 +30,7 @@ namespace Digimash.Application.Password.ForgotPasswordReset
                     DomainErrors.User.DoesNotExist);
             }
 
-            var isCodeValid = await _verificationCodeService.VerifyCodeAsync((int)user.Id, request.Code, VerificationCodeType.PasswordReset, cancellationToken, false);
+            var isCodeValid = await _verificationCodeService.VerifyCodeAsync((int)user.Id, request.Code, VerificationCodeType.PasswordReset, cancellationToken, true);
 
             if (!isCodeValid)
             {

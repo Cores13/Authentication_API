@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Digimash.Domain.Core.Exceptions;
+using Authentication.Domain.Core.Exceptions;
 using System.Net;
-using Digimash.Domain.Enums;
-using Digimash.Domain.DTOs.Responses;
+using Authentication.Domain.Enums;
+using Authentication.Domain.DTOs.Responses;
 using Newtonsoft.Json.Serialization;
 
-namespace Digimash.API.Middleware
+namespace Authentication.API.Middleware
 {
     public class ErrorHandlerMiddleware
     {

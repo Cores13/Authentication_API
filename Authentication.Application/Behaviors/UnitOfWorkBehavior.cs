@@ -1,8 +1,8 @@
-﻿using Digimash.Domain.Interfaces.Repository;
+﻿using Authentication.Domain.Interfaces.Repository;
 using MediatR;
 using System.Transactions;
 
-namespace Digimash.Application.Behaviors
+namespace Authentication.Application.Behaviors
 {
     public sealed class UnitOfWorkBehavior<TRequest, TResponse>
         : IPipelineBehavior<TRequest, TResponse>

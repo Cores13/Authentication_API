@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.Enums
+﻿namespace Authentication.Domain.Enums
 {
     public enum UserRoleEnum
     {

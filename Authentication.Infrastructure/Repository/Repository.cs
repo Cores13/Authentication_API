@@ -1,9 +1,9 @@
-﻿using Digimash.Infrastructure.Database;
+﻿using Authentication.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using Digimash.Domain.Interfaces.Repository;
+using Authentication.Domain.Interfaces.Repository;
 
-namespace Digimash.Infrastructure.Repository
+namespace Authentication.Infrastructure.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {

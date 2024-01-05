@@ -1,11 +1,11 @@
-﻿using Digimash.Domain.Core.Errors;
-using Digimash.Domain.Core.Exceptions;
-using Digimash.Domain.Enums;
-using Digimash.Domain.Interfaces.Repository;
-using Digimash.Domain.Interfaces.Services;
+﻿using Authentication.Domain.Core.Errors;
+using Authentication.Domain.Core.Exceptions;
+using Authentication.Domain.Enums;
+using Authentication.Domain.Interfaces.Repository;
+using Authentication.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
 
-namespace Digimash.Infrastructure.Services
+namespace Authentication.Infrastructure.Services
 {
     public class VerificationCodeService : IVerificationCodeService
     {
@@ -32,7 +32,7 @@ namespace Digimash.Infrastructure.Services
             {
                 if (user.ResetPasswordToken is null)
                 {
-                    throw new NotFoundException(DomainErrors.User.DoesNotExist.Message);
+                    throw new NotFoundException(DomainErrors.User.ResetPasswordTokenDoesNotExist.Message);
                 }
                 return user.ResetPasswordToken;
             }
@@ -40,7 +40,7 @@ namespace Digimash.Infrastructure.Services
             {
                 if (user.EmailVerificationToken is null)
                 {
-                    throw new NotFoundException(DomainErrors.User.DoesNotExist.Message);
+                    throw new NotFoundException(DomainErrors.User.EmailVerificationTokenDoesNotExist.Message);
                 }
                 return user.EmailVerificationToken;
             }
@@ -95,14 +95,13 @@ namespace Digimash.Infrastructure.Services
             {
                 user.EmailVerificationToken = newCode.ToUpper();
                 user.EmailVerificationExpiry = DateTime.UtcNow.AddMinutes(15);
-                var request = _currentContext.Request;
 
-                var host = request.Host.ToUriComponent();
-
-                var pathBase = request.PathBase.ToUriComponent();
-
+                //var request = _currentContext.Request;
+                //var host = request.Host.ToUriComponent();
+                //var pathBase = request.PathBase.ToUriComponent();
                 //var code = $"{request.Scheme}://{host}{pathBase}/api/user/verifyemail/{user.Id}/{user.EmailVerificationToken}";
-                var code = $"/verifyemail/{user.Id}/{user.EmailVerificationToken}";
+                
+                var code = $"/verify-email/{user.Id}/{user.EmailVerificationToken}";
                 _ = _emailService.SendEmailVerificationCodeEmail(to, user.Name, code);
             }
 
@@ -111,7 +110,7 @@ namespace Digimash.Infrastructure.Services
 
         private static string GenerateCode()
         {
-            var length = 4;
+            var length = 12;
             var random = new Random();
 
             const string pool = "abcdefghijklmnopqrstuvwxyz123456789";

@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Enums;
+﻿using Authentication.Domain.Enums;
 
-namespace Digimash.Domain.Core.Exceptions
+namespace Authentication.Domain.Core.Exceptions
 {
     public class BadRequestException : Exception
     {

@@ -1,7 +1,7 @@
-﻿using Digimash.Domain.Core.Primitives;
+﻿using Authentication.Domain.Core.Primitives;
 using MediatR;
 
-namespace Digimash.Application.Abstractions.Messaging
+namespace Authentication.Application.Abstractions.Messaging
 {
     public interface ICommandHandler<TCommand> : IRequestHandler<TCommand, Result>
         where TCommand : ICommand

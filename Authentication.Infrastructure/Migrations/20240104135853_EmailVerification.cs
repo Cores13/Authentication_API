@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Digimash.Infrastructure.Migrations
+namespace Authentication.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class EmailVerification : Migration

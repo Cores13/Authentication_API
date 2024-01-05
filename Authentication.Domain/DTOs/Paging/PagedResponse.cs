@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.DTOs.Paging
+﻿namespace Authentication.Domain.DTOs.Paging
 {
     public class PagedResponse<T>
     {

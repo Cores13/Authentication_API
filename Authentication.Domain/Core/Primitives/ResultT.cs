@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.Core.Primitives
+﻿namespace Authentication.Domain.Core.Primitives
 {
     /// <summary>
     /// Represents the result of some operation, with status information and possibly a value and an error.

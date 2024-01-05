@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.DTOs.Request
+﻿namespace Authentication.Domain.DTOs.Request
 {
     public class ForgotPasswordRequestDto
     {

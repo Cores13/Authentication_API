@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Core.Primitives;
+﻿using Authentication.Domain.Core.Primitives;
 
-namespace Digimash.Domain.Core.Errors
+namespace Authentication.Domain.Core.Errors
 {
     /// <summary>
     /// Contains the domain errors.
@@ -23,6 +23,16 @@ namespace Digimash.Domain.Core.Errors
             public static Error DoesNotExist => new Error("User.DoesNotExist", "User does not exist.");
 
             /// <summary>
+            /// User does not exist error.
+            /// </summary>
+            public static Error ResetPasswordTokenDoesNotExist => new Error("User.ResetPasswordTokenDoesNotExist", "Password reset token does not exist.");
+            
+            /// <summary>
+            /// User does not exist error.
+            /// </summary>
+            public static Error EmailVerificationTokenDoesNotExist => new Error("User.EmailVerificationTokenDoesNotExist", "Email verification token does not exist.");
+
+            /// <summary>
             /// Specified role does not exist error.
             /// </summary>
             public static Error InvalidRole => new Error("User.InvalidRole", "Specified role does not exist.");
@@ -36,6 +46,11 @@ namespace Digimash.Domain.Core.Errors
             /// User email is not verified error.
             /// </summary>
             public static Error UserNotVerified => new Error("User.UserNotVerified", "User email is not verified.");
+
+            /// <summary>
+            /// User email is not verified error.
+            /// </summary>
+            public static Error EmailAlreadyVerified => new Error("User.EmailAlreadyVerified", "Your email is already verified.");
         }
     }
 }

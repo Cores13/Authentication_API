@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Interfaces.Services;
-using Digimash.Infrastructure.Database;
-using Digimash.Infrastructure.Options.Authentication;
+﻿using Authentication.Domain.Interfaces.Services;
+using Authentication.Infrastructure.Database;
+using Authentication.Infrastructure.Options.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Digimash.Infrastructure.Services
+namespace Authentication.Infrastructure.Services
 {
     public class AuthService : IAuthService
     {

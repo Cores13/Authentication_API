@@ -1,8 +1,8 @@
-﻿using Digimash.Domain.Entities;
-using Digimash.Domain.Seeders;
+﻿using Authentication.Domain.Entities;
+using Authentication.Domain.Seeders;
 using Microsoft.EntityFrameworkCore;
 
-namespace Digimash.Infrastructure.Database
+namespace Authentication.Infrastructure.Database
 {
     public class ApplicationDbContext : DbContext
     {

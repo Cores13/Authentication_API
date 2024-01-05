@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.Templates
+﻿namespace Authentication.Domain.Templates
 {
     public class EmailTemplates
     {
@@ -10,7 +10,7 @@
             {
                 directory = directory.Parent;
             }
-            var path = Path.Combine(directory.FullName, "Digimash.Domain\\Templates").ToString();
+            var path = Path.Combine(directory.FullName, "Authentication.Domain\\Templates").ToString();
             
             return path;
         }

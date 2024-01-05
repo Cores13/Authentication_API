@@ -1,13 +1,13 @@
-﻿using Digimash.Application.Abstractions.Messaging;
-using Digimash.Domain.Core.Primitives;
-using Digimash.Domain.Interfaces.Repository;
-using Digimash.Domain.Entities;
-using Digimash.Domain.Core.Errors;
-using Digimash.Application.Abstractions;
-using Digimash.Domain.Interfaces.Services;
-using Digimash.Domain.DTOs.Responses;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Domain.Core.Primitives;
+using Authentication.Domain.Interfaces.Repository;
+using Authentication.Domain.Entities;
+using Authentication.Domain.Core.Errors;
+using Authentication.Application.Abstractions;
+using Authentication.Domain.Interfaces.Services;
+using Authentication.Domain.DTOs.Responses;
 
-namespace Digimash.Application.Users.Commands.Login
+namespace Authentication.Application.Users.Commands.Login
 {
     internal sealed class LoginCommandHandler : ICommandHandler<LoginCommand, TokenResponseDto>
     {

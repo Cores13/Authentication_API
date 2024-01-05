@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.DTOs.Paging
+﻿namespace Authentication.Domain.DTOs.Paging
 {
     /// <summary>
     /// Represents a paged request with arbitary type primary query. Subclass for additional data.

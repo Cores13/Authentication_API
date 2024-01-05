@@ -1,7 +1,7 @@
-﻿using Digimash.Domain.Enums;
-using Digimash.Domain.Primitives;
+﻿using Authentication.Domain.Enums;
+using Authentication.Domain.Primitives;
 
-namespace Digimash.Domain.Entities
+namespace Authentication.Domain.Entities
 {
     public sealed class User : Entity
     {

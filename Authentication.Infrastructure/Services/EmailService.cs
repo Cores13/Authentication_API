@@ -4,12 +4,12 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using RazorEngineCore;
 using System.Text;
-using Digimash.Infrastructure.Options.Email;
-using Digimash.Domain.Interfaces.Services;
-using Digimash.Domain.DTOs.Email;
-using Digimash.Domain.Templates;
+using Authentication.Infrastructure.Options.Email;
+using Authentication.Domain.Interfaces.Services;
+using Authentication.Domain.DTOs.Email;
+using Authentication.Domain.Templates;
 
-namespace Digimash.Infrastructure.Services
+namespace Authentication.Infrastructure.Services
 {
     public class EmailService : IEmailService
     {

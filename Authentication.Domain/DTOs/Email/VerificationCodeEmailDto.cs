@@ -1,4 +1,4 @@
-﻿namespace Digimash.Domain.DTOs.Email
+﻿namespace Authentication.Domain.DTOs.Email
 {
     public class VerificationCodeEmailDto
     {

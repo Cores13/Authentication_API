@@ -1,6 +1,6 @@
-﻿using Digimash.Domain.Entities;
+﻿using Authentication.Domain.Entities;
 
-namespace Digimash.Application.Abstractions
+namespace Authentication.Application.Abstractions
 {
     public interface IJwtProvider
     {

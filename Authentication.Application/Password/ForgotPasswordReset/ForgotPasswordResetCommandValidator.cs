@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Digimash.Application.Password.ForgotPasswordReset
+namespace Authentication.Application.Password.ForgotPasswordReset
 {
     public sealed class ForgotPasswordResetCommandValidator : AbstractValidator<ForgotPasswordResetCommand>
     {
@@ -8,7 +8,7 @@ namespace Digimash.Application.Password.ForgotPasswordReset
         {
             RuleFor(x => x.Code)
               .NotEmpty()
-              .MinimumLength(4);
+              .MinimumLength(12);
 
             RuleFor(x => x.Password)
                 .MinimumLength(6)

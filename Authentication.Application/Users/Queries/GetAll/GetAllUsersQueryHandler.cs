@@ -1,11 +1,11 @@
-﻿using Digimash.Application.Abstractions.Messaging;
-using Digimash.Domain.Core.Errors;
-using Digimash.Domain.Core.Primitives;
-using Digimash.Domain.DTOs.Paging;
-using Digimash.Domain.DTOs.Responses;
-using Digimash.Domain.Interfaces.Repository;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Domain.Core.Errors;
+using Authentication.Domain.Core.Primitives;
+using Authentication.Domain.DTOs.Paging;
+using Authentication.Domain.DTOs.Responses;
+using Authentication.Domain.Interfaces.Repository;
 
-namespace Digimash.Application.Users.Queries.GetOne
+namespace Authentication.Application.Users.Queries.GetOne
 {
     internal sealed class GetAllUsersQueryHandler : IQueryHandler<GetAllUsersQuery, PagedResponse<UserResponseDto?>>
     {

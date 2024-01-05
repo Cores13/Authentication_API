@@ -1,6 +1,6 @@
-﻿using Digimash.Application.Abstractions.Messaging;
+﻿using Authentication.Application.Abstractions.Messaging;
 
-namespace Digimash.Application.Password.ForgotPasswordRequest
+namespace Authentication.Application.Password.ForgotPasswordRequest
 {
     public record ForgotPasswordRequestCommand(string Email) : ICommand;
 }

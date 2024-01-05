@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Digimash.Application
+namespace Authentication.Application
 {
     public static class AssemblyReference
     {

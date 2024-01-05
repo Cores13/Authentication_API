@@ -1,10 +1,10 @@
-﻿using Digimash.Infrastructure.Options.Authentication;
+﻿using Authentication.Infrastructure.Options.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Digimash.API.OptionsSetup
+namespace Authentication.API.OptionsSetup
 {
     public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
     {
