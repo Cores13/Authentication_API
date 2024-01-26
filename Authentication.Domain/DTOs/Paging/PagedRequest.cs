@@ -16,7 +16,7 @@
             Page = page;
         }
 
-        public string Includes { get; set; }
+        public string? Includes { get; set; } = string.Empty;
 
         public int PageSize { get; set; }
 
@@ -32,10 +32,10 @@
 
         public bool IsFullSize { get; set; } = false;
 
-        public T Query { get; set; }
+        public T? Query { get; set; }
 
         // json string because Swashbuckle does not support Dictionary in FromQuery yet
-        public string Filter { get; set; }
+        public string? Filter { get; set; }
 
         private void EnsureValidPagination()
         {

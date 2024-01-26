@@ -1,8 +1,6 @@
 ﻿using Authentication.Domain.DTOs.Paging;
-using Authentication.Domain.DTOs.Requests;
 using Authentication.Domain.DTOs.Responses;
 using Authentication.Domain.Entities;
-using System.Linq.Expressions;
 
 namespace Authentication.Domain.Interfaces.Repository
 {
@@ -10,10 +8,18 @@ namespace Authentication.Domain.Interfaces.Repository
     {
         Task<PagedResponse<UserResponseDto?>> GetAllPaged(PagedRequest<string> pagedQuery);
 
-        Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken);
+        Task<User?> GetByRefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default);
 
-        Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken);
+        Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
-        Task Update(User user, CancellationToken cancellationToken);
+        Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
+
+        Task Update(User user, CancellationToken cancellationToken = default);
+
+        bool IsEmailUnique(string email, int? id = null);
+
+        bool IsPhoneNumberUnique(string phoneNumber, int? id = null);
+
+        bool IsUsernameUnique(string username, int? id = null);
     }
 }

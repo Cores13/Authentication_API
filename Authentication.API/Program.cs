@@ -7,11 +7,15 @@ using Authentication.Application.Behaviors;
 using MediatR;
 using Authentication.API.Middleware;
 using FluentValidation;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -36,7 +40,7 @@ builder.Services.AddScoped(
     typeof(IPipelineBehavior<,>),
     typeof(ValidationPipelineBehavior<,>));
 
-builder.Services.AddValidatorsFromAssembly(Authentication.Application.AssemblyReference.Assembly,
+builder.Services.AddValidatorsFromAssembly(AssemblyReference.Assembly,
     includeInternalTypes: true);
 
 builder.Host.UseSerilog((context, configuration) =>
@@ -49,16 +53,17 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseHttpsRedirection(); // Change before production
 }
 
 app.UseSerilogRequestLogging();
 
 app.UseCors(builder => builder
      .AllowAnyOrigin()
+     //.WithOrigins("http://localhost:3000", "https://Authentication-web.azurewebsites.net")
      .AllowAnyMethod()
      .AllowAnyHeader());
 
-app.UseHttpsRedirection();
 
 app.UseMiddleware(typeof(ErrorHandlerMiddleware));
 

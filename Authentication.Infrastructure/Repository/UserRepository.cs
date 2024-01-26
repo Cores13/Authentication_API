@@ -23,7 +23,6 @@ namespace Authentication.Infrastructure.Repository
         public async Task<PagedResponse<UserResponseDto?>> GetAllPaged(PagedRequest<string> pagedQuery)
         {
             var query = _context.Users
-                .OrderByDescending(x => x.CreatedOn)
                 .AsQueryable();
 
             if (pagedQuery.Filter != null)
@@ -32,7 +31,7 @@ namespace Authentication.Infrastructure.Repository
 
                 if (filters.TryGetValue("search", out var nameFilter) && !string.IsNullOrWhiteSpace(nameFilter.ToString()))
                 {
-                    query = query.Where(x => x.Name.Contains(nameFilter.ToString()));
+                    query = query.Where(x => x.Name.Contains(nameFilter.ToString()) || x.Email.Contains(nameFilter.ToString()));
                 }
 
                 if (filters.TryGetValue("role", out var roleFilter) && roleFilter != null)
@@ -40,11 +39,17 @@ namespace Authentication.Infrastructure.Repository
                     var role = (UserRoleEnum)Enum.ToObject(typeof(UserRoleEnum), roleFilter);
                     query = query.Where(x => x.Role == role);
                 }
+
+                if (filters.TryGetValue("status", out var statusFilter) && statusFilter != null)
+                {
+                    var status = (UserStatusEnum)Enum.ToObject(typeof(UserStatusEnum), statusFilter);
+                    query = query.Where(x => x.Status == status);
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(pagedQuery.OrderByKey))
             {
-                query = query.OrderBy(pagedQuery.OrderByKey.ToString());
+                query = query.OrderBy(pagedQuery.OrderByKey.ToString(), !pagedQuery.IsDescending);
             }
 
             var totalResults = await query.CountAsync();
@@ -53,35 +58,69 @@ namespace Authentication.Infrastructure.Repository
 
             var results = await query.ToListAsync();
 
+            var mapOptions = new UserMapper.UserResponseDtoMapOptions
+            {
+                Contacts = true
+            };
+
             return new PagedResponse<UserResponseDto?>
             {
-                Results = results.ToDto(),
+                Results = results.ToDto(mapOptions),
                 Page = pagedQuery.Page,
                 PageSize = pagedQuery.PageSize,
                 TotalResults = totalResults
             };
         }
 
-        public async Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken)
+        public async Task<User?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await _context.Users.SingleOrDefaultAsync(x => x.Id == id);
+            return await _context.Users.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
         }
 
-        public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken)
+        public async Task<User?> GetByRefreshTokenAsync(string refreshToken, CancellationToken cancellationToken = default)
         {
-            return await _context.Users.SingleOrDefaultAsync(x => x.Email == email);
+            return await _context.Users.SingleOrDefaultAsync(x => x.RefreshToken == refreshToken, cancellationToken);
         }
 
-        public async Task Update(User entity, CancellationToken cancellationToken)
+        public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == entity.Id);
+            return await _context.Users.SingleOrDefaultAsync(x => x.Email == email, cancellationToken);
+        }
+
+        public async Task Update(User entity, CancellationToken cancellationToken = default)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == entity.Id, cancellationToken);
+            user.Username = string.IsNullOrEmpty(entity.Username) ? user.Username : entity.Username;
             user.Name = string.IsNullOrEmpty(entity.Name) ? user.Name : entity.Name;
             user.Email = string.IsNullOrEmpty(entity.Email) ? user.Email : entity.Email;
+            user.PhoneNumber = string.IsNullOrEmpty(entity.PhoneNumber) ? user.PhoneNumber : entity.PhoneNumber;
             user.PasswordHash = entity.PasswordHash ?? user.PasswordHash;
             user.PasswordSalt = entity.PasswordSalt ?? user.PasswordSalt;
             user.Role = entity.Role is null ? user.Role : (UserRoleEnum)Enum.ToObject(typeof(UserRoleEnum), entity.Role);
+            user.Status = entity.Status is null ? user.Status : (UserStatusEnum)Enum.ToObject(typeof(UserRoleEnum), entity.Status);
+            user.UpdatedOn = DateTime.UtcNow;
 
-            //_context.Users.Update(entity);
+        }
+
+        public bool IsEmailUnique(string email, int ? id = null)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Email == email &&  x.Id != id);
+
+            return user is null ? true : false;
+        }
+
+        public bool IsPhoneNumberUnique(string phoneNumber, int ? id = null)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.PhoneNumber == phoneNumber &&  x.Id != id);
+
+            return user is null ? true : false;
+        }
+
+        public bool IsUsernameUnique(string username, int ? id = null)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Username == username &&  x.Id != id);
+
+            return user is null ? true : false;
         }
     }
 }

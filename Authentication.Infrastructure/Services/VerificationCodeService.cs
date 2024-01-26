@@ -19,7 +19,7 @@ namespace Authentication.Infrastructure.Services
             _currentContext = httpContextAccessor.HttpContext;
         }
 
-        public async Task<string> GetCodeAsync(int userId, VerificationCodeType type, CancellationToken cancellationToken)
+        public async Task<string> GetCodeAsync(int userId, VerificationCodeType type, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
 
@@ -46,7 +46,7 @@ namespace Authentication.Infrastructure.Services
             }
         }
 
-        public async Task<bool> VerifyCodeAsync(int userId, string code, VerificationCodeType type, CancellationToken cancellationToken, bool deleteIfValid)
+        public async Task<bool> VerifyCodeAsync(int userId, string code, VerificationCodeType type, bool deleteIfValid, CancellationToken cancellationToken = default)
         {
             var dbCode = await GetCodeAsync(userId, type, cancellationToken);
             var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
@@ -72,7 +72,7 @@ namespace Authentication.Infrastructure.Services
             return false;
         }
 
-        public async Task<string> CreateCodeAsync(int userId, VerificationCodeType type, CancellationToken cancellationToken)
+        public async Task<string> CreateCodeAsync(int userId, VerificationCodeType type, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
 

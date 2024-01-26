@@ -1,13 +1,18 @@
 ﻿using Authentication.Domain.Enums;
 using Authentication.Domain.Primitives;
+using System.Text.Json.Serialization;
 
 namespace Authentication.Domain.Entities
 {
-    public sealed class User : Entity
+    public class User : Entity
     {
+        public string Username { get; set; }
+
         public string Name { get; set; }
 
         public string Email { get; set; }
+
+        public string PhoneNumber { get; set; }
 
         public byte[] PasswordHash { get; set; }
 
@@ -29,5 +34,6 @@ namespace Authentication.Domain.Entities
 
         public UserRoleEnum? Role { get; set; }
 
+        public UserStatusEnum? Status { get; set; }
     }
 }

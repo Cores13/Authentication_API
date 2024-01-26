@@ -1,37 +1,75 @@
-﻿namespace Authentication.Infrastructure.Services
+﻿using Authentication.Domain.Interfaces.Repository;
+using Authentication.Domain.Interfaces.Services;
+using PhoneNumbers;
+
+namespace Authentication.Infrastructure.Services
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Authentication.Domain.Interfaces.Repository;
-    using Authentication.Domain.Interfaces.Services;
-    using Authentication.Infrastructure.Database;
-    using Microsoft.EntityFrameworkCore;
-    using PhoneNumbers;
     public class ValidationService : IValidationService
     {
-        private readonly ApplicationDbContext _context;
         private readonly IUserRepository _userRepository;
 
-        public ValidationService(ApplicationDbContext context, IUserRepository userRepository)
+        public ValidationService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _context = context;
         }
 
-        public async Task<bool> IsEmailUnique(string email)
+        public bool IsUsernameUnique(string username, int? userId = null)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
-
-            var isUnique = user == null ? true : false;
-            return isUnique;
+            try
+            {
+                var user = _userRepository.IsUsernameUnique(username, userId);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        public bool IsUserEmailUnique(string email, long? userId = null)
+        public bool IsUserEmailUnique(string email, int? userId = null)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Email == email && x.Id != userId);
+            try
+            {
+                var user = _userRepository.IsEmailUnique(email, userId);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
-            return user is null ? true : false;
+        public bool ValidatePhoneNumber(string phoneNumber, string phoneRegion)
+        {
+            try
+            {
+                var phoneNumberUtil = PhoneNumbers.PhoneNumberUtil.GetInstance();
+                var pn = phoneNumberUtil.Parse(phoneNumber, phoneRegion);
+                var isValid = phoneNumberUtil.IsValidNumber(pn);
+
+                return isValid;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool UniquePhoneNumber(string phoneNumber, int? userId = null)
+        {
+            try
+            {
+                var phoneNumberUtil = PhoneNumbers.PhoneNumberUtil.GetInstance();
+                var pn = phoneNumberUtil.Parse(phoneNumber, "BA");
+                var formattedPhoneNumber = phoneNumberUtil.Format(pn, PhoneNumberFormat.E164);
+
+                var userExists = _userRepository.IsPhoneNumberUnique(formattedPhoneNumber, userId);
+                return userExists;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

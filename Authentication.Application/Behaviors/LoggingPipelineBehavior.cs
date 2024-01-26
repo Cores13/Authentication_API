@@ -19,7 +19,7 @@ namespace Authentication.Application.Behaviors
         public async Task<TResponse> Handle(
             TRequest request,
             RequestHandlerDelegate<TResponse> next,
-            CancellationToken cancellationToken) 
+            CancellationToken cancellationToken = default) 
         {
             _logger.LogInformation("Starting request {@RequestName}, {@DateTimeUtc}",
                 typeof(TRequest).Name, DateTime.UtcNow);

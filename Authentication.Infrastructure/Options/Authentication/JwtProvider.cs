@@ -40,7 +40,7 @@ namespace Authentication.Infrastructure.Options.Authentication
                 Issuer = _options.Issuer,
                 Audience = _options.Audience,
                 Subject = claims,
-                Expires = DateTime.Now.AddSeconds(10),
+                Expires = DateTime.UtcNow.AddSeconds(10),
                 SigningCredentials = signingCredentials,
             };
 

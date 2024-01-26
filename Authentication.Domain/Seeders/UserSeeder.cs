@@ -15,8 +15,9 @@ namespace Authentication.Domain.Seeders
             new User()
             {
                 Id = 1,
-                Name = "Super Administrator",
-                Email = "superadmin@digimash.com",
+                Username = "Administrator",
+                Name = "Administrator",
+                Email = "admin@authentication.com",
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 EmailVerifiedAt = DateTime.UtcNow,
@@ -24,14 +25,17 @@ namespace Authentication.Domain.Seeders
                 RefreshTokenExpiryTime = DateTime.UtcNow,
                 ResetPasswordToken = null,
                 ResetPasswordExpiry = DateTime.UtcNow,
-                Role = UserRoleEnum.SuperAdministrator
+                Role = UserRoleEnum.Administrator,
+                Status = UserStatusEnum.Active,
+                PhoneNumber = "061061061",
             },
 
             new User()
             {
                 Id = 2,
-                Name = "Admin",
-                Email = "admin@digimash.com",
+                Username = "User",
+                Name = "User",
+                Email = "user@authentication.com",
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 EmailVerifiedAt = DateTime.UtcNow,
@@ -39,7 +43,9 @@ namespace Authentication.Domain.Seeders
                 RefreshTokenExpiryTime = DateTime.UtcNow,
                 ResetPasswordToken = null,
                 ResetPasswordExpiry = DateTime.UtcNow,
-                Role = UserRoleEnum.Administrator
+                Role = UserRoleEnum.User,
+                Status = UserStatusEnum.Active,
+                PhoneNumber = "062062062",
             }
         };
     }

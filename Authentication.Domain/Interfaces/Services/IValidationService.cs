@@ -1,12 +1,13 @@
 ﻿namespace Authentication.Domain.Interfaces.Services
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-
     public interface IValidationService
     {
-        Task<bool> IsEmailUnique(string email);
+        bool IsUsernameUnique(string username, int? userId = null);
 
-        bool IsUserEmailUnique(string email, long? userId = null);
+        bool IsUserEmailUnique(string email, int? userId = null);
+
+        bool ValidatePhoneNumber(string phoneNumber, string phoneRegion);
+
+        bool UniquePhoneNumber(string phoneNumber, int? userId = null);
     }
 }

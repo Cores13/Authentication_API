@@ -21,6 +21,11 @@ namespace Authentication.Domain.Core.Errors
             /// User does not exist error.
             /// </summary>
             public static Error DoesNotExist => new Error("User.DoesNotExist", "User does not exist.");
+            
+            /// <summary>
+            /// User does not exist error.
+            /// </summary>
+            public static Error UsernameIsInUse => new Error("User.UsernameIsInUse", "Username already in use.");
 
             /// <summary>
             /// User does not exist error.
@@ -41,11 +46,31 @@ namespace Authentication.Domain.Core.Errors
             /// Invalid request error.
             /// </summary>
             public static Error InvalidRequest => new Error("User.InvalidRequest", "Invalid request.");
+            
+            /// <summary>
+            /// Invalid request error.
+            /// </summary>
+            public static Error InvalidPhoneNumber => new Error("User.InvalidPhoneNumber", "Invalid phone number.");
+                 
+            /// <summary>
+            /// Invalid request error.
+            /// </summary>
+            public static Error PhoneNumberNotUnique => new Error("User.PhoneNumberNotUnique", "Phone number already in use.");
+                       
+            /// <summary>
+            /// Invalid request error.
+            /// </summary>
+            public static Error PhoneNumberRegionNotFound => new Error("User.PhoneNumberRegionNotFound", "Phone number region missing.");
 
             /// <summary>
             /// User email is not verified error.
             /// </summary>
             public static Error UserNotVerified => new Error("User.UserNotVerified", "User email is not verified.");
+            
+            /// <summary>
+            /// User email is not verified error.
+            /// </summary>
+            public static Error UserInactive => new Error("User.UserInactive", "User is inactive.");
 
             /// <summary>
             /// User email is not verified error.

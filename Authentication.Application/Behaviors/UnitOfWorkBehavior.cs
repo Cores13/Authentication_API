@@ -17,20 +17,21 @@ namespace Authentication.Application.Behaviors
         public async Task<TResponse> Handle(
             TRequest request,
             RequestHandlerDelegate<TResponse> next,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
         {
             if (IsNotCommand())
             {
                 return await next();
             }
 
-            using var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+            //using var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
 
             var response = await next();
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            //_unitOfWork.SaveChanges();
 
-            transactionScope.Complete();
+            //transactionScope.Complete();
 
             return response;
         }

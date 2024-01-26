@@ -4,18 +4,17 @@ using Authentication.Domain.Enums;
 using MediatR;
 using Authentication.Domain.Core.Primitives;
 using Authentication.Domain.Interfaces.Primitives;
-using System.Xml.Linq;
 
 namespace Authentication.API.Controllers
 {
     public class BaseController : Controller
     {
-        protected readonly ISender Sender;
+        protected readonly ISender _sender;
 
 
         protected BaseController(ISender sender)
         {
-            Sender = sender;
+            _sender = sender;
         }
 
         [NonAction]

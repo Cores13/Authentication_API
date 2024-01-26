@@ -24,37 +24,41 @@ namespace Authentication.Infrastructure
                     configuration.GetConnectionString("Default"),
                     ctxOptions =>
                     {
-                        // ctxOptions.MaxBatchSize(1000);
-                        // ctxOptions.EnableRetryOnFailure();
                         ctxOptions.MigrationsAssembly("Authentication.Infrastructure");
-                        // ctxOptions.UseNetTopologySuite();
                         ctxOptions.CommandTimeout(180);
                     }
-                ).EnableSensitiveDataLogging();
+                );
+                //).EnableSensitiveDataLogging();
             });
 
-            services.AddScoped<IValidationService, ValidationService>();
+            // Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Services
+            services.AddScoped<IValidationService, ValidationService>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IJwtProvider, JwtProvider>();
             services.AddScoped<IPasswordService, PasswordService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IVerificationCodeService, VerificationCodeService>();
             services.AddScoped<IEmailService, EmailService>();
+
+            // Providers
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IJwtProvider, JwtProvider>();
+
 
             return services;
         }
 
-        public static void UseProjectSqlServer(this IApplicationBuilder app)
-        {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
-                {
-                    context.Database.Migrate();
-                }
-            }
-        }
+        //public static void UseProjectSqlServer(this IApplicationBuilder app)
+        //{
+        //    using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+        //    {
+        //        using (var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>())
+        //        {
+        //            context.Database.Migrate();
+        //        }
+        //    }
+        //}
     }
 }

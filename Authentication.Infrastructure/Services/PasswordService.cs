@@ -37,7 +37,7 @@ namespace Authentication.Infrastructure.Services
                 var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
                 for (int i = 0; i < computedHash.Length; i++)
                 {
-                    Console.Write(user.PasswordHash[i] + ", ");
+                    //Console.Write(user.PasswordHash[i] + ", ");
 
                     if (computedHash[i] != user.PasswordHash[i]) return false;
                 }
@@ -46,22 +46,26 @@ namespace Authentication.Infrastructure.Services
             return true;
         }
 
-        public string CheckPasswordStrength(string password)
+        public bool CheckPasswordStrength(string password)
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            //StringBuilder stringBuilder = new StringBuilder();
             if (password.Length < 8)
             {
-                stringBuilder.Append("Minimum password length should be 8 characters." + Environment.NewLine);
+                //stringBuilder.Append("Minimum password length should be 8 characters." + Environment.NewLine);
+                return false;
             }
             if (!(Regex.IsMatch(password, "[a-z]") && Regex.IsMatch(password, "[A-Z]") && Regex.IsMatch(password, "[0-9]")))
             {
-                stringBuilder.Append("Password should be alphanumeric." + Environment.NewLine);
+                //stringBuilder.Append("Password should be alphanumeric." + Environment.NewLine);
+                return false;
             }
             if (!Regex.IsMatch(password, "[`~,!,@,#,$,%,^,&,*,(,),+,=,{,},/,|,:,;,\\,\\[,\\],|,',<,>,.,?,_,]"))
             {
-                stringBuilder.Append("Password should contain special characters." + Environment.NewLine);
+                //stringBuilder.Append("Password should contain special characters." + Environment.NewLine);
+                return false;
             }
-            return stringBuilder.ToString();
+            //return stringBuilder.ToString();
+            return true;
         }
     }
 }

@@ -2,11 +2,13 @@
 {
     public abstract class EntitySoftDelete : IEquatable<EntitySoftDelete>
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         public DateTime? CreatedOn { get; set; } = DateTime.Now;
 
         public DateTime? UpdatedOn { get; set; } = DateTime.Now;
+
+        public DateTime? DeletedOn { get; set; }
 
         public static bool operator ==(EntitySoftDelete? first, EntitySoftDelete? second)
         {
