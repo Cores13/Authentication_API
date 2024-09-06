@@ -42,7 +42,7 @@ namespace Authentication.Application.UserCommands.Users.Commands.Update
                 newUser.PasswordSalt = passwordSalt;
             }
 
-            _userRepository.Update(newUser, cancellationToken);
+            await _userRepository.Update(newUser, cancellationToken);
 
             return Result.Success();
         }
