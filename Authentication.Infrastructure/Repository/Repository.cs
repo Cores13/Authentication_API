@@ -68,7 +68,7 @@ namespace Authentication.Infrastructure.Repository
 
         public void GetAddedEntity(T entity)
         {
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             dbSet.Entry(entity).GetDatabaseValues();
         }
     }
