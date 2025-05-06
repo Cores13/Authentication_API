@@ -1,6 +1,6 @@
 ﻿using Authentication.Domain.Core.Primitives;
-using MediatR;
 using Microsoft.Extensions.Logging;
+using Authentication.Application.Abstractions.Messaging;
 
 namespace Authentication.Application.Behaviors
 {

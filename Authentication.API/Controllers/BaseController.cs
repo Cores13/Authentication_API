@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Authentication.Domain.Enums;
-using MediatR;
 using Authentication.Domain.Core.Primitives;
 using Authentication.Domain.Interfaces.Primitives;
+using Authentication.Application.Abstractions.Messaging;
 
 namespace Authentication.API.Controllers
 {
     public class BaseController : Controller
     {
-        protected readonly ISender _sender;
+        protected readonly IMediator _sender;
 
 
-        protected BaseController(ISender sender)
+        protected BaseController(IMediator sender)
         {
             _sender = sender;
         }

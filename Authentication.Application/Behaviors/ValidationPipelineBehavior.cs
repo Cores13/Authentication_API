@@ -1,6 +1,6 @@
 ﻿using Authentication.Domain.Core.Primitives;
 using FluentValidation;
-using MediatR;
+using Authentication.Application.Abstractions.Messaging;
 
 namespace Authentication.Application.Behaviors
 {

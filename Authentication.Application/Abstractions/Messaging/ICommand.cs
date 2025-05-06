@@ -1,5 +1,4 @@
 ﻿using Authentication.Domain.Core.Primitives;
-using MediatR;
 
 namespace Authentication.Application.Abstractions.Messaging
 {

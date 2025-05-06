@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Authentication.API.OptionsSetup;
 using Serilog;
 using Authentication.Application.Behaviors;
-using MediatR;
 using Authentication.API.Middleware;
 using FluentValidation;
 using Newtonsoft.Json;
+using Authentication.Application.Abstractions.Messaging;
+using Authentication.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,8 @@ builder.Services
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer();
+
+
 
 builder.Services.ConfigureOptions<EmailOptionsSetup>();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();

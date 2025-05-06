@@ -1,5 +1,5 @@
 ﻿using Authentication.Domain.Interfaces.Repository;
-using MediatR;
+using Authentication.Application.Abstractions.Messaging;
 using System.Transactions;
 
 namespace Authentication.Application.Behaviors

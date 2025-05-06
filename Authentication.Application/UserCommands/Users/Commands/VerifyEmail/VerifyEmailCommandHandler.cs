@@ -18,7 +18,7 @@ namespace Authentication.Application.UserCommands.Users.Commands.VerifyEmail
             _verificationCodeService = verificationCodeService;
         }
 
-        public async Task<Result> Handle(VerifyEmailCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result> HandleAsync(VerifyEmailCommand request, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByIdAsync(request.Id, cancellationToken);
 

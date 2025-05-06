@@ -1,4 +1,5 @@
-﻿using Authentication.Application.UserCommands.Password.ForgotPasswordRequest;
+﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Application.UserCommands.Password.ForgotPasswordRequest;
 using Authentication.Application.UserCommands.Password.ForgotPasswordReset;
 using Authentication.Application.UserCommands.Password.ForgotPasswordVerifyCode;
 using Authentication.Application.UserCommands.Users.Commands.Create;
@@ -17,7 +18,7 @@ using Authentication.Domain.Core.Primitives;
 using Authentication.Domain.DTOs.Paging;
 using Authentication.Domain.DTOs.Request;
 using Authentication.Domain.DTOs.Requests;
-using MediatR;
+//using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +28,7 @@ namespace Authentication.API.Controllers
     [Route("api/[controller]/[action]")]
     public class UserController : BaseController
     {
-        public UserController(ISender sender) :base(sender)
+        public UserController(IMediator sender) :base(sender)
         {
         }
 

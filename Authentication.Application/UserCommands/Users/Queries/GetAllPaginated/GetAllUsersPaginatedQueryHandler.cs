@@ -16,7 +16,7 @@ namespace Authentication.Application.UserCommands.Users.Queries.GetAllPaginated
             _userRepository = userRepository;
         }
 
-        public async Task<Result<PagedResponse<UserResponseDto?>>> Handle(GetAllUsersPaginatedQuery request, CancellationToken cancellationToken = default)
+        public async Task<Result<PagedResponse<UserResponseDto?>>> HandleAsync(GetAllUsersPaginatedQuery request, CancellationToken cancellationToken = default)
         {
             var users = await _userRepository.GetAllPaged(request.PagedQuery);
 

@@ -20,7 +20,7 @@ namespace Authentication.Application.UserCommands.Password.ForgotPasswordReset
             _passwordService = passwordService;
         }
 
-        public async Task<Result> Handle(ForgotPasswordResetCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result> HandleAsync(ForgotPasswordResetCommand request, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
 

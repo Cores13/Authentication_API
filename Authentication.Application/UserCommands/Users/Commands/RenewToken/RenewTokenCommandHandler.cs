@@ -22,7 +22,7 @@ namespace Authentication.Application.UserCommands.Users.Commands.RenewToken
             _authService = authService;
         }
 
-        public async Task<Result<TokenResponseDto>> Handle(RenewTokenCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result<TokenResponseDto>> HandleAsync(RenewTokenCommand request, CancellationToken cancellationToken = default)
         {
             string refreshToken = request.RefreshToken;
 

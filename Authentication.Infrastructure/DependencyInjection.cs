@@ -11,6 +11,7 @@ using Authentication.Application.Abstractions;
 using Authentication.Infrastructure.Options.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Authentication.Application.Abstractions.Messaging;
 
 namespace Authentication.Infrastructure
 {
@@ -30,6 +31,10 @@ namespace Authentication.Infrastructure
                 );
                 //).EnableSensitiveDataLogging();
             });
+
+            // Custom MediatR
+            services.AddScoped(typeof(IRequestHandler<,>), typeof(CustomMediator));
+            services.AddScoped<IMediator, CustomMediator>();
 
             // Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();

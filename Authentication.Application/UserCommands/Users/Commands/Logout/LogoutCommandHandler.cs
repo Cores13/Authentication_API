@@ -15,7 +15,7 @@ namespace Authentication.Application.UserCommands.Users.Commands.Logout
             _userRepository = userRepository;
         }
 
-        public async Task<Result> Handle(LogoutCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result> HandleAsync(LogoutCommand request, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByIdAsync(request.Id, cancellationToken);
 
