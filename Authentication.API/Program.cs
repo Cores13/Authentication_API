@@ -32,8 +32,8 @@ builder.Services.ConfigureOptions<EmailOptionsSetup>();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
-builder.Services.AddValidatorsFromAssembly(AssemblyReference.Assembly,
-    includeInternalTypes: true);
+//builder.Services.AddValidatorsFromAssembly(AssemblyReference.Assembly,
+//    includeInternalTypes: true);
 
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));

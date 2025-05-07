@@ -95,7 +95,7 @@ namespace Authentication.Application
             }
 
             // Add FluentValidation validators
-            services.AddValidatorsFromAssembly(assembly);
+            services.AddValidatorsFromAssembly(assembly, includeInternalTypes: true);
 
             // Register pipeline behaviors
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
