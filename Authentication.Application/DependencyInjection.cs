@@ -1,7 +1,7 @@
 ﻿using Authentication.Application.Abstractions.Messaging;
 using Authentication.Application.Behaviors;
+using Authentication.Domain.Core.Primitives;
 using FluentValidation;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -15,79 +15,92 @@ namespace Authentication.Application
 
             var handlerTypes = assembly.GetTypes()
                 .Where(t => t.IsClass && !t.IsAbstract &&
-                            (t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>)) ||
-                             t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICommandHandler<>)) ||
-                             t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>)) ||
-                             t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IQueryHandler<,>))))
+                            (t.GetInterfaces().Any(i => i.IsGenericType && (
+                                i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>) ||
+                                i.GetGenericTypeDefinition() == typeof(ICommandHandler<>) ||
+                                i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>) ||
+                                i.GetGenericTypeDefinition() == typeof(IQueryHandler<,>)
+                            ))))
                 .ToList();
 
             foreach (var handlerType in handlerTypes)
             {
-                // Register ICommandHandler<TCommand, TResponse>
+                // Handle ICommandHandler<TCommand, TResponse>
                 var commandHandlerInterface = handlerType.GetInterfaces()
                     .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>));
 
                 if (commandHandlerInterface != null)
                 {
-                    var commandType = commandHandlerInterface.GetGenericArguments()[0]; // TCommand
-                    var responseType = commandHandlerInterface.GetGenericArguments()[1]; // TResponse
+                    var commandType = commandHandlerInterface.GetGenericArguments()[0];
+                    var responseType = commandHandlerInterface.GetGenericArguments()[1];
 
                     var genericCommandHandlerType = typeof(ICommandHandler<,>).MakeGenericType(commandType, responseType);
                     services.AddScoped(genericCommandHandlerType, handlerType);
+
+                    // ALSO register as IRequestHandler<TCommand, Result<TResponse>>
+                    var genericRequestHandlerType = typeof(IRequestHandler<,>).MakeGenericType(
+                        commandType,
+                        typeof(Result<>).MakeGenericType(responseType)
+                    );
+                    services.AddScoped(genericRequestHandlerType, handlerType);
                 }
 
-                // Register ICommandHandler<TCommand> (for commands with no return type)
-                var commandHandlerInterfaceNoResponse = handlerType.GetInterfaces()
+                // Handle ICommandHandler<TCommand> (commands with no return)
+                var commandHandlerNoResponseInterface = handlerType.GetInterfaces()
                     .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICommandHandler<>));
 
-                if (commandHandlerInterfaceNoResponse != null)
+                if (commandHandlerNoResponseInterface != null)
                 {
-                    var commandType = commandHandlerInterfaceNoResponse.GetGenericArguments()[0]; // TCommand
+                    var commandType = commandHandlerNoResponseInterface.GetGenericArguments()[0];
+
                     var genericCommandHandlerType = typeof(ICommandHandler<>).MakeGenericType(commandType);
                     services.AddScoped(genericCommandHandlerType, handlerType);
+
+                    // ALSO register as IRequestHandler<TCommand, Result>
+                    var genericRequestHandlerType = typeof(IRequestHandler<,>).MakeGenericType(
+                        commandType,
+                        typeof(Result)
+                    );
+                    services.AddScoped(genericRequestHandlerType, handlerType);
                 }
 
-                // Register IRequestHandler<TRequest, TResponse> (for request handlers)
+                // Handle IRequestHandler<TRequest, TResponse> (direct request handlers)
                 var requestHandlerInterface = handlerType.GetInterfaces()
                     .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>));
 
                 if (requestHandlerInterface != null)
                 {
-                    var requestType = requestHandlerInterface.GetGenericArguments()[0]; // TRequest
-                    var responseType = requestHandlerInterface.GetGenericArguments()[1]; // TResponse
-
-                    var genericRequestHandlerType = typeof(IRequestHandler<,>).MakeGenericType(requestType, responseType);
-                    services.AddScoped(genericRequestHandlerType, handlerType);
+                    services.AddScoped(requestHandlerInterface, handlerType);
                 }
 
-                // Register IQueryHandler<TQuery, TResponse> (for query handlers)
+                // Handle IQueryHandler<TQuery, TResponse>
                 var queryHandlerInterface = handlerType.GetInterfaces()
                     .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IQueryHandler<,>));
 
                 if (queryHandlerInterface != null)
                 {
-                    var queryType = queryHandlerInterface.GetGenericArguments()[0]; // TQuery
-                    var responseType = queryHandlerInterface.GetGenericArguments()[1]; // TResponse
+                    var queryType = queryHandlerInterface.GetGenericArguments()[0];
+                    var responseType = queryHandlerInterface.GetGenericArguments()[1];
 
                     var genericQueryHandlerType = typeof(IQueryHandler<,>).MakeGenericType(queryType, responseType);
                     services.AddScoped(genericQueryHandlerType, handlerType);
+
+                    // ALSO register as IRequestHandler<TQuery, Result<TResponse>>
+                    var genericRequestHandlerType = typeof(IRequestHandler<,>).MakeGenericType(
+                        queryType,
+                        typeof(Result<>).MakeGenericType(responseType)
+                    );
+                    services.AddScoped(genericRequestHandlerType, handlerType);
                 }
             }
 
             // Add FluentValidation validators
             services.AddValidatorsFromAssembly(assembly);
 
-            services.AddScoped(
-                typeof(IPipelineBehavior<,>),
-                typeof(LoggingPipelineBehavior<,>));
-
-            services.AddScoped(
-                typeof(IPipelineBehavior<,>),
-                typeof(ValidationPipelineBehavior<,>));
-
-            services.AddScoped(
-            typeof(IPipelineBehavior<,>),
-                typeof(UnitOfWorkBehavior<,>));
+            // Register pipeline behaviors
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
 
             return services;
         }

@@ -13,7 +13,6 @@ namespace Authentication.Infrastructure.Services
             _serviceProvider = serviceProvider;
         }
 
-        // Send method for requests WITH a response
         public async Task<Result<TResponse>> Send<TResponse>(
             IRequest<Result<TResponse>> request,
             CancellationToken cancellationToken = default)
@@ -22,7 +21,6 @@ namespace Authentication.Infrastructure.Services
             return await handlerDelegate();
         }
 
-        // Send method for requests WITHOUT a response
         public async Task<Result> Send(
             IRequest<Result> request,
             CancellationToken cancellationToken = default)
@@ -42,9 +40,19 @@ namespace Authentication.Infrastructure.Services
 
             RequestHandlerDelegate<Result<TResponse>> handlerDelegate = async () =>
             {
-                var handlerType = typeof(IRequestHandler<,>).MakeGenericType(request.GetType(), typeof(Result<TResponse>));
-                dynamic handler = _serviceProvider.GetRequiredService(handlerType);
-                return await handler.Handle((dynamic)request, cancellationToken);
+                var requestType = request.GetType(); // LoginCommand
+                var handlerType = typeof(IRequestHandler<,>).MakeGenericType(requestType, typeof(Result<TResponse>));
+
+                var handler = _serviceProvider.GetRequiredService(handlerType);
+
+                var method = handlerType.GetMethod("Handle");
+                if (method == null)
+                {
+                    throw new InvalidOperationException($"Handler {handlerType} does not have a Handle method.");
+                }
+
+                var task = (Task<Result<TResponse>>)method.Invoke(handler, new object[] { request, cancellationToken });
+                return await task;
             };
 
             foreach (var behavior in behaviors)
@@ -67,9 +75,19 @@ namespace Authentication.Infrastructure.Services
 
             RequestHandlerDelegate<Result> handlerDelegate = async () =>
             {
-                var handlerType = typeof(IRequestHandler<,>).MakeGenericType(request.GetType(), typeof(Result));
-                dynamic handler = _serviceProvider.GetRequiredService(handlerType);
-                return await handler.Handle((dynamic)request, cancellationToken);
+                var requestType = request.GetType(); // Concrete command
+                var handlerType = typeof(IRequestHandler<,>).MakeGenericType(requestType, typeof(Result));
+
+                var handler = _serviceProvider.GetRequiredService(handlerType);
+
+                var method = handlerType.GetMethod("Handle");
+                if (method == null)
+                {
+                    throw new InvalidOperationException($"Handler {handlerType} does not have a Handle method.");
+                }
+
+                var task = (Task<Result>)method.Invoke(handler, new object[] { request, cancellationToken });
+                return await task;
             };
 
             foreach (var behavior in behaviors)
