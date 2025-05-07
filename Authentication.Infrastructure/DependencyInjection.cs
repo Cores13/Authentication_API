@@ -33,8 +33,7 @@ namespace Authentication.Infrastructure
             });
 
             // Custom MediatR
-            services.AddScoped(typeof(IRequestHandler<,>), typeof(CustomMediator));
-            services.AddScoped<IMediator, CustomMediator>();
+            services.AddScoped<IMediator, Mediator>();
 
             // Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();

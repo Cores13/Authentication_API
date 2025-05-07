@@ -1,4 +1,5 @@
 ﻿using Authentication.Application.Abstractions.Messaging;
+using Authentication.Domain.Core.Primitives;
 
 namespace Authentication.Application.UserCommands.Users.Commands.Logout
 {

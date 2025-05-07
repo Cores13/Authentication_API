@@ -7,8 +7,6 @@ using Authentication.Application.Behaviors;
 using Authentication.API.Middleware;
 using FluentValidation;
 using Newtonsoft.Json;
-using Authentication.Application.Abstractions.Messaging;
-using Authentication.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +22,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddApplication()
+    //.AddMediator()
     .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -34,14 +33,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.ConfigureOptions<EmailOptionsSetup>();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
-
-builder.Services.AddScoped(
-    typeof(IPipelineBehavior<,>),
-    typeof(LoggingPipelineBehavior<,>));
-
-builder.Services.AddScoped(
-    typeof(IPipelineBehavior<,>),
-    typeof(ValidationPipelineBehavior<,>));
 
 builder.Services.AddValidatorsFromAssembly(AssemblyReference.Assembly,
     includeInternalTypes: true);
