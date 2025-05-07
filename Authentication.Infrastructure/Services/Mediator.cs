@@ -1,7 +1,6 @@
 ﻿using Authentication.Application.Abstractions.Messaging;
 using Authentication.Domain.Core.Primitives;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace Authentication.Infrastructure.Services
 {
@@ -14,8 +13,19 @@ namespace Authentication.Infrastructure.Services
             _serviceProvider = serviceProvider;
         }
 
-        // Main entry point for sending requests
-        public async Task<Result<TResponse>> Send<TResponse>(IRequest<Result<TResponse>> request, CancellationToken cancellationToken = default)
+        // Send method for requests WITH a response
+        public async Task<Result<TResponse>> Send<TResponse>(
+            IRequest<Result<TResponse>> request,
+            CancellationToken cancellationToken = default)
+        {
+            var handlerDelegate = BuildPipeline(request, cancellationToken);
+            return await handlerDelegate();
+        }
+
+        // Send method for requests WITHOUT a response
+        public async Task<Result> Send(
+            IRequest<Result> request,
+            CancellationToken cancellationToken = default)
         {
             var handlerDelegate = BuildPipeline(request, cancellationToken);
             return await handlerDelegate();
@@ -25,45 +35,43 @@ namespace Authentication.Infrastructure.Services
             IRequest<Result<TResponse>> request,
             CancellationToken cancellationToken)
         {
-            // Get all pipeline behaviors to apply before/after the handler
             var behaviors = _serviceProvider
                 .GetServices<IPipelineBehavior<IRequest<Result<TResponse>>, Result<TResponse>>>()
                 .Reverse()
                 .ToList();
 
-            // Start the handler delegate for the pipeline
             RequestHandlerDelegate<Result<TResponse>> handlerDelegate = async () =>
             {
-                // If the request is a command with a response (ICommand<TResponse>)
-                if (request is ICommand<TResponse> command)
-                {
-                    var handlerType = typeof(IRequestHandler<,>).MakeGenericType(command.GetType(), typeof(Result<TResponse>));
-                    dynamic handler = _serviceProvider.GetRequiredService(handlerType);
-                    return await handler.HandleAsync((dynamic)command, cancellationToken);
-                }
-
-                // If the request is a command without a response (ICommand)
-                if (request is ICommand commandWithoutResponse)
-                {
-                    var handlerType = typeof(IRequestHandler<,>).MakeGenericType(commandWithoutResponse.GetType(), typeof(Result));
-                    dynamic handler = _serviceProvider.GetRequiredService(handlerType);
-                    await handler.HandleAsync((dynamic)commandWithoutResponse, cancellationToken);
-                    return Result.Success<TResponse>(default); // Return a default result (no response for ICommand)
-                }
-
-                // If it's a regular request without a command (IRequest)
-                if (request is IRequest<TResponse> query)
-                {
-                    var handlerType = typeof(IRequestHandler<,>).MakeGenericType(query.GetType(), typeof(Result<TResponse>));
-                    dynamic handler = _serviceProvider.GetRequiredService(handlerType);
-                    return await handler.HandleAsync((dynamic)query, cancellationToken);
-                }
-
-                // Throw if unknown request type
-                throw new InvalidOperationException($"Unknown request type: {request.GetType().Name}");
+                var handlerType = typeof(IRequestHandler<,>).MakeGenericType(request.GetType(), typeof(Result<TResponse>));
+                dynamic handler = _serviceProvider.GetRequiredService(handlerType);
+                return await handler.HandleAsync((dynamic)request, cancellationToken);
             };
 
-            // Apply pipeline behaviors in reverse order
+            foreach (var behavior in behaviors)
+            {
+                var next = handlerDelegate;
+                handlerDelegate = () => behavior.Handle(request, next, cancellationToken);
+            }
+
+            return handlerDelegate;
+        }
+
+        private RequestHandlerDelegate<Result> BuildPipeline(
+            IRequest<Result> request,
+            CancellationToken cancellationToken)
+        {
+            var behaviors = _serviceProvider
+                .GetServices<IPipelineBehavior<IRequest<Result>, Result>>()
+                .Reverse()
+                .ToList();
+
+            RequestHandlerDelegate<Result> handlerDelegate = async () =>
+            {
+                var handlerType = typeof(IRequestHandler<,>).MakeGenericType(request.GetType(), typeof(Result));
+                dynamic handler = _serviceProvider.GetRequiredService(handlerType);
+                return await handler.HandleAsync((dynamic)request, cancellationToken);
+            };
+
             foreach (var behavior in behaviors)
             {
                 var next = handlerDelegate;
@@ -73,5 +81,4 @@ namespace Authentication.Infrastructure.Services
             return handlerDelegate;
         }
     }
-}
 }
