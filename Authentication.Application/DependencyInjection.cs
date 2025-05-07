@@ -97,9 +97,12 @@ namespace Authentication.Application
             // Add FluentValidation validators
             services.AddValidatorsFromAssembly(assembly, includeInternalTypes: true);
 
+            services.AddMemoryCache();
+
             // Register pipeline behaviors
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(CachingPipelineBehavior<,>));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
 
             return services;
