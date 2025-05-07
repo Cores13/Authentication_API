@@ -124,7 +124,7 @@ namespace Authentication.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles="Administrator")]
+        [Authorize(Roles= "Administrator")]
         public async Task<IActionResult> Create(UserRequestDto user, CancellationToken cancellationToken = default)
         {
             try
