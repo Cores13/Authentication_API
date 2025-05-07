@@ -15,12 +15,12 @@ namespace Authentication.Application
 
             var handlerTypes = assembly.GetTypes()
                 .Where(t => t.IsClass && !t.IsAbstract &&
-                            (t.GetInterfaces().Any(i => i.IsGenericType && (
-                                i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>) ||
-                                i.GetGenericTypeDefinition() == typeof(ICommandHandler<>) ||
-                                i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>) ||
-                                i.GetGenericTypeDefinition() == typeof(IQueryHandler<,>)
-                            ))))
+                    (t.GetInterfaces().Any(i => i.IsGenericType && (
+                        i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>) ||
+                        i.GetGenericTypeDefinition() == typeof(ICommandHandler<>) ||
+                        i.GetGenericTypeDefinition() == typeof(IRequestHandler<,>) ||
+                        i.GetGenericTypeDefinition() == typeof(IQueryHandler<,>)
+                    ))))
                 .ToList();
 
             foreach (var handlerType in handlerTypes)
