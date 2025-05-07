@@ -3,7 +3,6 @@ using Authentication.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Authentication.API.OptionsSetup;
 using Serilog;
-using Authentication.Application.Behaviors;
 using Authentication.API.Middleware;
 using FluentValidation;
 using Newtonsoft.Json;
@@ -22,7 +21,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddApplication()
-    //.AddMediator()
     .AddInfrastructure(builder.Configuration);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

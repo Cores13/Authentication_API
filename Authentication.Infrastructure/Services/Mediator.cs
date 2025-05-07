@@ -50,7 +50,7 @@ namespace Authentication.Infrastructure.Services
             foreach (var behavior in behaviors)
             {
                 var next = handlerDelegate;
-                handlerDelegate = () => behavior.Handle(request, next, cancellationToken);
+                handlerDelegate = async () => await behavior.Handle(request, next, cancellationToken);
             }
 
             return handlerDelegate;
@@ -75,7 +75,7 @@ namespace Authentication.Infrastructure.Services
             foreach (var behavior in behaviors)
             {
                 var next = handlerDelegate;
-                handlerDelegate = () => behavior.Handle(request, next, cancellationToken);
+                handlerDelegate = async () => await behavior.Handle(request, next, cancellationToken);
             }
 
             return handlerDelegate;

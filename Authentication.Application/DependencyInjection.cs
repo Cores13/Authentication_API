@@ -13,27 +13,6 @@ namespace Authentication.Application
         {
             var assembly = AssemblyReference.Assembly;
 
-            // Register all command handlers (ICommandHandler<,>) and query handlers (IQueryHandler<,>) using reflection
-            //var handlerTypes = assembly
-            //    .GetTypes()
-            //    .Where(t => !t.IsAbstract && !t.IsInterface)
-            //    .SelectMany(t => t.GetInterfaces(), (type, iface) => new { type, iface })
-            //    .Where(t =>
-            //        t.iface.IsGenericType &&
-            //        (
-            //            t.iface.GetGenericTypeDefinition() == typeof(ICommandHandler<>) ||
-            //            t.iface.GetGenericTypeDefinition() == typeof(ICommandHandler<,>) ||
-            //            t.iface.GetGenericTypeDefinition() == typeof(IRequestHandler<,>) ||
-            //            t.iface.GetGenericTypeDefinition() == typeof(IQueryHandler<,>)
-            //        ))
-            //    .Distinct();
-
-            //foreach (var handler in handlerTypes)
-            //{
-            //    services.AddScoped(handler.iface, handler.type);
-            //}
-
-            // Register ICommandHandler<TCommand> and ICommandHandler<TCommand, TResponse>
             var handlerTypes = assembly.GetTypes()
                 .Where(t => t.IsClass && !t.IsAbstract &&
                             (t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICommandHandler<,>)) ||
@@ -54,7 +33,7 @@ namespace Authentication.Application
                     var responseType = commandHandlerInterface.GetGenericArguments()[1]; // TResponse
 
                     var genericCommandHandlerType = typeof(ICommandHandler<,>).MakeGenericType(commandType, responseType);
-                    services.AddTransient(genericCommandHandlerType, handlerType);
+                    services.AddScoped(genericCommandHandlerType, handlerType);
                 }
 
                 // Register ICommandHandler<TCommand> (for commands with no return type)
@@ -65,7 +44,7 @@ namespace Authentication.Application
                 {
                     var commandType = commandHandlerInterfaceNoResponse.GetGenericArguments()[0]; // TCommand
                     var genericCommandHandlerType = typeof(ICommandHandler<>).MakeGenericType(commandType);
-                    services.AddTransient(genericCommandHandlerType, handlerType);
+                    services.AddScoped(genericCommandHandlerType, handlerType);
                 }
 
                 // Register IRequestHandler<TRequest, TResponse> (for request handlers)
@@ -78,7 +57,7 @@ namespace Authentication.Application
                     var responseType = requestHandlerInterface.GetGenericArguments()[1]; // TResponse
 
                     var genericRequestHandlerType = typeof(IRequestHandler<,>).MakeGenericType(requestType, responseType);
-                    services.AddTransient(genericRequestHandlerType, handlerType);
+                    services.AddScoped(genericRequestHandlerType, handlerType);
                 }
 
                 // Register IQueryHandler<TQuery, TResponse> (for query handlers)
@@ -91,7 +70,7 @@ namespace Authentication.Application
                     var responseType = queryHandlerInterface.GetGenericArguments()[1]; // TResponse
 
                     var genericQueryHandlerType = typeof(IQueryHandler<,>).MakeGenericType(queryType, responseType);
-                    services.AddTransient(genericQueryHandlerType, handlerType);
+                    services.AddScoped(genericQueryHandlerType, handlerType);
                 }
             }
 
@@ -111,33 +90,6 @@ namespace Authentication.Application
                 typeof(UnitOfWorkBehavior<,>));
 
             return services;
-        }
-
-        public static IServiceCollection AddMediator(this IServiceCollection services, params Assembly[] assemblies)
-        {
-            var types = assemblies.SelectMany(a => a.GetTypes()).ToList();
-
-            foreach (var type in types)
-            {
-                var interfaces = type.GetInterfaces();
-
-                foreach (var @interface in interfaces)
-                {
-                    if (!@interface.IsGenericType) continue;
-
-                    var genericType = @interface.GetGenericTypeDefinition();
-
-                    if (genericType == typeof(IRequestHandler<,>) ||
-                        genericType == typeof(ICommandHandler<,>) ||
-                        genericType == typeof(ICommandHandler<>) ||
-                        genericType == typeof(IQueryHandler<,>))
-                    {
-                        services.AddTransient(@interface, type);
-                    }
-                }
-            }
-
-            return services; // <-- ADD THIS!
         }
     }
 }
