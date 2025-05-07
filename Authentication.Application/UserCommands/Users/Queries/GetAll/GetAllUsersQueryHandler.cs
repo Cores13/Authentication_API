@@ -16,7 +16,7 @@ namespace Authentication.Application.UserCommands.Users.Queries.GetAll
             _userRepository = userRepository;
         }
 
-        public async Task<Result<ICollection<UserResponseDto?>>> HandleAsync(GetAllUsersQuery request, CancellationToken cancellationToken = default)
+        public async Task<Result<ICollection<UserResponseDto?>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken = default)
         {
             var users = await _userRepository.GetAll();
 

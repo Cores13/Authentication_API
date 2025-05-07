@@ -13,7 +13,7 @@ namespace Authentication.Application.UserCommands.Users.Commands.Delete
             _userRepository = userRepository;
         }
 
-        public async Task<Result> HandleAsync(DeleteUserCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(DeleteUserCommand request, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByIdAsync((int)request.Id, cancellationToken);
             _userRepository.Remove(user);

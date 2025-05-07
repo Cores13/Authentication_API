@@ -16,7 +16,7 @@ namespace Authentication.Application.UserCommands.Users.Queries.GetOne
             _userRepository = userRepository;
         }
 
-        public async Task<Result<UserResponseDto>> HandleAsync(GetOneUserQuery request, CancellationToken cancellationToken = default)
+        public async Task<Result<UserResponseDto>> Handle(GetOneUserQuery request, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByIdAsync(request.Id, cancellationToken);
 

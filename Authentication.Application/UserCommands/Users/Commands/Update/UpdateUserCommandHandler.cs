@@ -18,7 +18,7 @@ namespace Authentication.Application.UserCommands.Users.Commands.Update
             _passwordService = passwordService;
         }
 
-        public async Task<Result> HandleAsync(UpdateUserCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(UpdateUserCommand request, CancellationToken cancellationToken = default)
         {
             var user = new UserRequestDto()
             {

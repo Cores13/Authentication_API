@@ -22,7 +22,7 @@ namespace Authentication.Application.UserCommands.Users.Commands.Create
             _verificationCodeService = verificationCodeService;
         }
 
-        public async Task<Result> HandleAsync(CreateUserCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken = default)
         {
             if (!Enum.IsDefined(typeof(UserRoleEnum), request.Role))
             {

@@ -28,7 +28,7 @@ namespace Authentication.Application.UserCommands.Users.Commands.Login
             _passwordService = passwordService;
         }
 
-        public async Task<Result<TokenResponseDto>> HandleAsync(LoginCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result<TokenResponseDto>> Handle(LoginCommand request, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
 

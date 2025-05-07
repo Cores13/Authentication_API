@@ -18,7 +18,7 @@ namespace Authentication.Application.UserCommands.Password.ForgotPasswordVerifyC
             _verificationCodeService = verificationCodeService;
         }
 
-        public async Task<Result> HandleAsync(ForgotPasswordVerifyCodeCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(ForgotPasswordVerifyCodeCommand request, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
 

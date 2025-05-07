@@ -44,7 +44,7 @@ namespace Authentication.Infrastructure.Services
             {
                 var handlerType = typeof(IRequestHandler<,>).MakeGenericType(request.GetType(), typeof(Result<TResponse>));
                 dynamic handler = _serviceProvider.GetRequiredService(handlerType);
-                return await handler.HandleAsync((dynamic)request, cancellationToken);
+                return await handler.Handle((dynamic)request, cancellationToken);
             };
 
             foreach (var behavior in behaviors)
@@ -69,7 +69,7 @@ namespace Authentication.Infrastructure.Services
             {
                 var handlerType = typeof(IRequestHandler<,>).MakeGenericType(request.GetType(), typeof(Result));
                 dynamic handler = _serviceProvider.GetRequiredService(handlerType);
-                return await handler.HandleAsync((dynamic)request, cancellationToken);
+                return await handler.Handle((dynamic)request, cancellationToken);
             };
 
             foreach (var behavior in behaviors)

@@ -19,7 +19,7 @@ namespace Authentication.Application.UserCommands.Users.Commands.ResendVerificat
             _verificationCodeService = verificationCodeService;
         }
 
-        public async Task<Result> HandleAsync(ResendVerificationEmailCommand request, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(ResendVerificationEmailCommand request, CancellationToken cancellationToken = default)
         {
             var user = await _userRepository.GetByIdAsync(request.Id, cancellationToken);
 
